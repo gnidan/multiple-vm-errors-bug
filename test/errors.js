@@ -5,15 +5,6 @@ const Reverter = artifacts.require("Reverter");
 // async provider.send (uses web3 global)
 const send = promisify(web3.currentProvider.send.bind(web3.currentProvider));
 
-// submits without awaiting receipt; returns tx hash
-const submit = async (operation) => new Promise(
-  (accept, reject) => {
-    operation.on("transactionHash", accept);
-    setTimeout(reject, 5000);
-  }
-);
-
-
 contract("Reverter", () => {
   it("might return both result and error", async () => {
     const from = (await web3.eth.getAccounts())[0];
